@@ -1,3 +1,4 @@
+/* 
 package com.project.prova.demo.controller;
 
 import com.project.prova.demo.model.User;
@@ -47,3 +48,4 @@ public class UserController {
         userRepository.deleteById(id);
     }
 }
+    */
