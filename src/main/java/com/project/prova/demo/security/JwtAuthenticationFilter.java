@@ -1,5 +1,7 @@
 package com.project.prova.demo.security;
 
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
@@ -34,9 +36,18 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         if (username != null && jwtUtils.validateToken(token)) {
-            // Imposta l'utente autenticato nel SecurityContextHolder
-            SecurityContextHolder.getContext().setAuthentication(null);
+            // Estrai i ruoli dal token
+            String role = jwtUtils.extractRole(token); 
+            System.out.println("Ruolo estratto dal token: " + role);
+
+            // Creazione dell'oggetto di autenticazione con il ruolo
+            UsernamePasswordAuthenticationToken authentication = 
+                new UsernamePasswordAuthenticationToken(username, null, AuthorityUtils.createAuthorityList(role));
+
+            // Imposta l'autenticazione nel contesto
+            SecurityContextHolder.getContext().setAuthentication(authentication);
         }
+
 
         filterChain.doFilter(request, response);
     }

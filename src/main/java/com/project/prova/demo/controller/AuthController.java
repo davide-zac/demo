@@ -51,8 +51,9 @@ public class AuthController {
 
         if (existingUser != null && passwordEncoder.matches(user.getPassword(), existingUser.getPassword())) {
             log.info("Login riuscito per utente: {}", user.getUsername());
+            String role = existingUser.getRoles().iterator().next();
 
-            return jwtUtils.generateToken(user.getUsername());
+            return jwtUtils.generateToken(user.getUsername(), role);
         }
         log.error("Login fallito: credenziali non valide per utente: {}", user.getUsername());
 
