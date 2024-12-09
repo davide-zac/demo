@@ -17,7 +17,6 @@ import java.util.Collections;
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
-
     @Autowired
     private UserRepository userRepository;
 
@@ -28,7 +27,7 @@ public class AuthController {
     private JwtUtils jwtUtils;
     private static final Logger log = LoggerFactory.getLogger(AuthController.class);
 
-
+    @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping("/register")
     public String register(@RequestBody User user) {
         log.info("Registrazione di un nuovo utente: {}", user.getUsername());
@@ -44,6 +43,7 @@ public class AuthController {
         return "User registered successfully!";
     }
 
+    @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping("/login")
     public String login(@RequestBody User user) {
         User existingUser = userRepository.findByUsername(user.getUsername());

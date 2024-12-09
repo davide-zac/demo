@@ -28,8 +28,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+            .cors() // Abilita CORS
+            .and()        
             .csrf().disable() // Disabilita la protezione CSRF (non necessaria per le API REST)
             .authorizeHttpRequests()
+                .requestMatchers(HttpMethod.GET, "/").permitAll() // Permetti l'accesso pubblico a questi endpoint
                 .requestMatchers(HttpMethod.POST, "/auth/register", "/auth/login").permitAll() // Permetti l'accesso pubblico a questi endpoint
                 .requestMatchers(HttpMethod.GET, "/test/**").hasRole("TEST") // Richiede il ruolo TEST per accedere agli endpoint test
                 .requestMatchers(HttpMethod.GET, "/admin/**").hasRole("ADMIN")
