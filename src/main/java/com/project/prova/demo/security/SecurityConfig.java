@@ -33,7 +33,7 @@ public class SecurityConfig {
             .csrf().disable() // Disabilita la protezione CSRF (non necessaria per le API REST)
             .authorizeHttpRequests()
                 .requestMatchers(HttpMethod.GET, "/").permitAll() // Permetti l'accesso pubblico a questi endpoint
-                .requestMatchers(HttpMethod.POST, "/auth/register", "/auth/login").permitAll() // Permetti l'accesso pubblico a questi endpoint
+                .requestMatchers(HttpMethod.POST, "/auth/register","/auth/register/admin", "/auth/login").permitAll() // Permetti l'accesso pubblico a questi endpoint
                 .requestMatchers(HttpMethod.GET, "/test/**").hasRole("TEST") // Richiede il ruolo TEST per accedere agli endpoint test
                 .requestMatchers(HttpMethod.GET, "/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated() // Richiede autenticazione per tutte le altre richieste
