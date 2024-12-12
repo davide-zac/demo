@@ -36,6 +36,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/auth/register","/auth/register/admin", "/auth/login").permitAll() // Permetti l'accesso pubblico a questi endpoint
                 .requestMatchers(HttpMethod.GET, "/test/**").hasRole("TEST") // Richiede il ruolo TEST per accedere agli endpoint test
                 .requestMatchers(HttpMethod.GET, "/admin/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.POST, "/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated() // Richiede autenticazione per tutte le altre richieste
             .and()
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class) // Aggiungi il filtro JWT
